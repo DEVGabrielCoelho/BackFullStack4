@@ -1,38 +1,10 @@
-name
-functionWork
-telephone
-email
-cpf
-rg
-dateBirthday
-address
-city
-country
-
-{
-	"name"  : "Gabriel Coelho",
-	"functionWork" : "Desenvolvedor Front-End",
-	"telephone"  : "(18)9999-9999",
-	"email"  : "gabrielcoelho@teste.123",
-	"cpf"  : "999999999-99",
-	"rg"  : "00000000-A",
-	"dateBirthday"  : "04/03/2023",
-	"address"  : "AV. Quatá - 123",
-	"city" : "Quatá",
-	"country"  : "BR"
-}
 
 
 CREATE TABLE employees (
-	id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	name VARCHAR(100) NOT NULL,
-	functionWork VARCHAR(100) NOT NULL,
-	telephone VARCHAR(50) NOT NULL,
-	email VARCHAR(50) NOT NULL,
-	cpf VARCHAR(50) NOT NULL,
-	rg VARCHAR(50) NOT NULL,
-	dateBirthday VARCHAR(50) NOT NULL,
-	address VARCHAR(100) NOT NULL,
-	city VARCHAR(100) NOT NULL,
-	country VARCHAR(100) NOT NULL
+  title varchar(100),
+  setTime varchar(100),
+  startDate varchar(100),
+  endDate varchar(100),
+	city varchar(100),
+  description varchar(100)
 )
