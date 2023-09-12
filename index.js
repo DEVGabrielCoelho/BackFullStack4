@@ -11,8 +11,8 @@ server.use(express.urlencoded({ extended: true }));
 //configurar a aplicação para processar corretamente o formado json.
 server.use(express.json());
 
-server.use("/aluno18-pfsii/events", eventsRouter);
-server.use("/aluno18-pfsii/city", cidadeRouter);
+server.use("/events", eventsRouter);
+server.use("/city", cidadeRouter);
 
 const localName = "localhost";
 const serverName = "0.0.0.0";

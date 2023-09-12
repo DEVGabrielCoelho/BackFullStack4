@@ -6,8 +6,8 @@ export default class CidadeBD {
     if (cidadeModel instanceof CidadeModel) {
       const conexao = await conectar();
 
-      const sql = "INSERT INTO cidade (categoria) VALUES (?)";
-      const valores = [cidadeModel.categoria];
+      const sql = "INSERT INTO cidade (Cidade) VALUES (?)";
+      const valores = [cidadeModel.Cidade];
 
       const resultado = await conexao.query(sql, valores);
       global.poolConexoes.release(conexao);
@@ -19,8 +19,8 @@ export default class CidadeBD {
     if (cidadeModel instanceof CidadeModel) {
       const conexao = await conectar();
 
-      const sql = "UPDATE cidade SET categoria = ? WHERE codigo = ?";
-      const valores = [cidadeModel.categoria, cidadeModel.codigo];
+      const sql = "UPDATE cidade SET Cidade = ? WHERE codigo = ?";
+      const valores = [cidadeModel.Cidade, cidadeModel.codigo];
 
       await conexao.query(sql, valores);
       global.poolConexoes.release(conexao);
@@ -42,20 +42,20 @@ export default class CidadeBD {
   async consultar(termo) {
     const conexao = await conectar();
 
-    const sql = "SELECT * FROM cidade WHERE categoria LIKE ?";
+    const sql = "SELECT * FROM cidade WHERE Cidade LIKE ?";
     const valores = ["%" + termo + "%"];
 
     const [rows] = await conexao.query(sql, valores);
     global.poolConexoes.release(conexao);
 
-    const listaCategorias = [];
+    const listaCidades = [];
 
     for (const row of rows) {
-      const cidadeModel = new CidadeModel(row["codigo"], row["categoria"]);
-      listaCategorias.push(cidadeModel);
+      const cidadeModel = new CidadeModel(row["codigo"], row["Cidade"]);
+      listaCidades.push(cidadeModel);
     }
 
-    return listaCategorias;
+    return listaCidades;
   }
 
   async consultarCodigo(codigo) {
@@ -67,13 +67,13 @@ export default class CidadeBD {
     const [rows] = await conexao.query(sql, valores);
     global.poolConexoes.release(conexao);
 
-    const listaCategorias = [];
+    const listaCidades = [];
 
     for (const row of rows) {
-      const cidadeModel = new CidadeModel(row["codigo"], row["categoria"]);
-      listaCategorias.push(cidadeModel);
+      const cidadeModel = new CidadeModel(row["codigo"], row["Cidade"]);
+      listaCidades.push(cidadeModel);
     }
 
-    return listaCategorias;
+    return listaCidades;
   }
 }

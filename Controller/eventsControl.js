@@ -11,6 +11,7 @@ export default class EventCtrl {
       const setTime = data.setTime;
       const startDate = data.startDate;
       const endDate = data.endDate;
+      const city = data.city;
       const description = data.description;
 
       if (title && setTime && startDate && endDate && city && description) {
