@@ -1,6 +1,6 @@
 import mysql from "mysql2/promise";
 
-export default async function conectar() {
+export default async function Connect() {
   if (global.poolConnections) {
     return await global.poolConnections.getConnection();
   }
@@ -19,6 +19,7 @@ export default async function conectar() {
     keepAliveInitialDelay: 0,
   });
 
-  global.poolConexoes = poolConexoes;
-  return await poolConexoes.getConecction();
+  global.poolConnections = Connect;
+
+  return await Connect.getConnection();
 }
