@@ -8,7 +8,7 @@ export default class Events {
   #city;
   #description;
 
-  constructor(title, setTime, startDate, endDate, description) {
+  constructor(title, setTime, startDate, endDate, city, description) {
     this.#title = title;
     this.#setTime = setTime;
     this.#startDate = startDate;
