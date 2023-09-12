@@ -1,6 +1,6 @@
 
 
-CREATE TABLE employees (
+CREATE TABLE events (
   title varchar(100),
   setTime varchar(100),
   startDate varchar(100),
