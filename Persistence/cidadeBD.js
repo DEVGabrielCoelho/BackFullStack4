@@ -42,7 +42,7 @@ export default class CidadeBD {
   async consultar(termo) {
     const conexao = await Connect();
 
-    const sql = "SELECT * FROM cidade WHERE Cidade LIKE ?";
+    const sql = "SELECT * FROM cidade";
     const valores = ["%" + termo + "%"];
 
     const [rows] = await conexao.query(sql, valores);
