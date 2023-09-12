@@ -5,6 +5,7 @@ export default class Events {
   #setTime;
   #startDate;
   #endDate;
+  #city;
   #description;
 
   constructor(title, setTime, startDate, endDate, description) {
@@ -12,6 +13,7 @@ export default class Events {
     this.#setTime = setTime;
     this.#startDate = startDate;
     this.#endDate = endDate;
+    this.#city = city;
     this.#description = description;
   }
 
@@ -52,6 +54,15 @@ export default class Events {
       this.#endDate = newEndDate;
     }
   }
+  get city() {
+    return this.#endDate;
+  }
+
+  set city(newCity) {
+    if (newCity != "") {
+      this.#city = newCity;
+    }
+  }
 
   get description() {
     return this.#description;
@@ -71,6 +82,7 @@ export default class Events {
       setTime: this.#setTime,
       startDate: this.#startDate,
       endDate: this.#endDate,
+      city: this.#city,
       description: this.#description,
     };
   }
