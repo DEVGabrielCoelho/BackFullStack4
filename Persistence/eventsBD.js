@@ -16,6 +16,7 @@ export default class EventsBD {
         event.city,
         event.description,
       ];
+      global.poolConnections.pool.releaseConnection(connection);
       await connection.query(sql, values);
     }
   }
@@ -33,6 +34,7 @@ export default class EventsBD {
         event.description,
         event.title,
       ];
+      global.poolConnections.pool.releaseConnection(connection);
       await connection.query(sql, values);
     }
   }
@@ -43,6 +45,7 @@ export default class EventsBD {
       const connection = await Connect();
       const sql = "DELETE FROM events WHERE title=?";
       const values = [event.title];
+      global.poolConnections.pool.releaseConnection(connection);
       await connection.query(sql, values);
     }
   }
@@ -52,6 +55,7 @@ export default class EventsBD {
     const connection = await Connect();
     const sql = "SELECT * FROM events";
     const value = ["%" + term + "%"];
+    global.poolConnections.pool.releaseConnection(connection);
     const [rows] = await connection.query(sql, value);
     const eventList = [];
     for (const row of rows) {
@@ -75,6 +79,7 @@ export default class EventsBD {
     const connection = await Connect();
     const sql = "SELECT * FROM events WHERE title = ?";
     const value = [title];
+    global.poolConnections.pool.releaseConnection(connection);
     const [rows] = await connection.query(sql, value);
     const eventList = [];
     for (const row of rows) {

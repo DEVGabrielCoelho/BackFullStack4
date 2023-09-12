@@ -10,7 +10,7 @@ export default class CidadeBD {
       const valores = [cidadeModel.Cidade];
 
       const resultado = await conexao.query(sql, valores);
-      global.poolConexoes.release(conexao);
+      global.poolConnections.pool.releaseConnection(connection);
       return resultado[0].insertId;
     }
   }
@@ -23,7 +23,7 @@ export default class CidadeBD {
       const valores = [cidadeModel.Cidade, cidadeModel.codigo];
 
       await conexao.query(sql, valores);
-      global.poolConexoes.release(conexao);
+      global.poolConnections.pool.releaseConnection(connection);
     }
   }
 
@@ -35,7 +35,7 @@ export default class CidadeBD {
       const valores = [cidadeModel.codigo];
 
       await conexao.query(sql, valores);
-      global.poolConexoes.release(conexao);
+      global.poolConnections.pool.releaseConnection(connection);
     }
   }
 
@@ -46,7 +46,7 @@ export default class CidadeBD {
     const valores = ["%" + termo + "%"];
 
     const [rows] = await conexao.query(sql, valores);
-    global.poolConexoes.release(conexao);
+    global.poolConnections.pool.releaseConnection(connection);
 
     const listaCidades = [];
 
@@ -65,7 +65,7 @@ export default class CidadeBD {
     const valores = [codigo];
 
     const [rows] = await conexao.query(sql, valores);
-    global.poolConexoes.release(conexao);
+    global.poolConnections.pool.releaseConnection(connection);
 
     const listaCidades = [];
 
