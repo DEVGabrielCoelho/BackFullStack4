@@ -1,8 +1,8 @@
 import { Router } from "express";
-import CidadeCTRL from "../Controle/CidadeCtrl.js";
+import CidadeControl from "../Controller/cidadeControl.js";
 
 const cidadeRouter = new Router();
-const cidadeCTRL = new CidadeCTRL();
+const cidadeCTRL = new CidadeControl();
 
 cidadeRouter
   .get("/", cidadeCTRL.consultar)

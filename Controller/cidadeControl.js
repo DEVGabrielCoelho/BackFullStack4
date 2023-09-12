@@ -1,6 +1,6 @@
-import CidadeModel from "../Modelo/CidadeModel.js";
+import CidadeModel from "../Model/cidade.js";
 
-export default class CidadeCTRL {
+export default class CidadeControl {
   consultar(requisicao, resposta) {
     resposta.type("application/json");
 

@@ -1,4 +1,4 @@
-import CidadeBD from "../Persistencia/CidadeBD.js";
+import CidadeBD from "../Persistence/cidadeBD.js";
 
 export default class CidadeModel {
   #codigo;

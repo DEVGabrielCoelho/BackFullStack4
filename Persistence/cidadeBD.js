@@ -1,5 +1,5 @@
-import conectar from "./Conexao.js";
-import CidadeModel from "../Modelo/CidadeModel.js";
+import CidadeModel from "../Model/cidade.js";
+import conectar from "./connectBD.js";
 
 export default class CidadeBD {
   async incluir(cidadeModel) {
