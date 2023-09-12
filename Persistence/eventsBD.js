@@ -7,7 +7,7 @@ export default class EventsBD {
     if (event instanceof Events) {
       const connection = await Connect();
       const sql =
-        "INSERT INTO eventtable (title, setTime, startDate, endDate, description) VALUES (?, ?, ?, ?, ?)";
+        "INSERT INTO events (title, setTime, startDate, endDate, city, description) VALUES (?, ?, ?, ?, ?, ?)";
       const values = [
         event.title,
         event.setTime,
@@ -23,7 +23,7 @@ export default class EventsBD {
     if (event instanceof Events) {
       const connection = await Connect();
       const sql =
-        "UPDATE eventtable SET setTime=?, startDate=?, endDate=?, description=? WHERE title=?";
+        "UPDATE events SET setTime=?, startDate=?, endDate=?, city=?, description=? WHERE title=?";
       const values = [
         event.setTime,
         event.startDate,
@@ -39,7 +39,7 @@ export default class EventsBD {
   async delete(event) {
     if (event instanceof Events) {
       const connection = await Connect();
-      const sql = "DELETE FROM eventtable WHERE title=?";
+      const sql = "DELETE FROM events WHERE title=?";
       const values = [event.title];
       await connection.query(sql, values);
     }
@@ -48,7 +48,7 @@ export default class EventsBD {
 
   async consult(term) {
     const connection = await Connect();
-    const sql = "SELECT * FROM eventtable";
+    const sql = "SELECT * FROM events";
     const value = ["%" + term + "%"];
     const [rows] = await connection.query(sql, value);
     const eventList = [];
@@ -70,7 +70,7 @@ export default class EventsBD {
 
   async consultTitle(title) {
     const connection = await Connect();
-    const sql = "SELECT * FROM eventtable WHERE title = ?";
+    const sql = "SELECT * FROM events WHERE title = ?";
     const value = [title];
     const [rows] = await connection.query(sql, value);
     const eventList = [];

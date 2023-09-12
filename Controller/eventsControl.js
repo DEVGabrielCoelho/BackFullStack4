@@ -13,13 +13,14 @@ export default class EventCtrl {
       const endDate = data.endDate;
       const description = data.description;
 
-      if (title && setTime && startDate && endDate && description) {
+      if (title && setTime && startDate && endDate && city && description) {
         // Grava um evento no Banco de Dados
         const events = new Events(
           title,
           setTime,
           startDate,
           endDate,
+          city,
           description
         );
         events
@@ -63,15 +64,17 @@ export default class EventCtrl {
       const setTime = data.setTime;
       const startDate = data.startDate;
       const endDate = data.endDate;
+      const city = data.city;
       const description = data.description;
 
-      if (title && setTime && startDate && endDate && description) {
+      if (title && setTime && startDate && endDate && city && description) {
         // Atualizar um evento no Banco de Dados
         const events = new Events(
           title,
           setTime,
           startDate,
           endDate,
+          city,
           description
         );
         events
