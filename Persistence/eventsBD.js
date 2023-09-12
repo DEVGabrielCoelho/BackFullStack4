@@ -68,7 +68,6 @@ export default class EventsBD {
         row["setTime"],
         row["startDate"],
         row["endDate"],
-        row["city_code"],
         city_code,
         row["description"]
       );
@@ -93,7 +92,7 @@ export default class EventsBD {
         row["setTime"],
         row["startDate"],
         row["endDate"],
-        row["city_code"],
+        city_code,
         row["description"]
       );
       eventList.push(event);
