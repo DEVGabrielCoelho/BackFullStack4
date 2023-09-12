@@ -5,8 +5,8 @@ export default class CidadeControl {
     resposta.type("application/json");
 
     if (requisicao.method === "GET") {
-      const cidadeProd = new CidadeModel();
-      cidadeProd
+      const cidade = new CidadeModel();
+      cidade
         .consultar("")
         .then((cidades) => {
           resposta.status(200).json(cidades);
@@ -31,13 +31,13 @@ export default class CidadeControl {
       const dados = requisicao.body;
       const cidade = dados.cidade;
       if (cidade) {
-        const cidadeProd = new CidadeModel(0, cidade);
-        cidadeProd
+        const cidade = new CidadeModel(0, cidade);
+        cidade
           .gravar()
           .then(() => {
             resposta.status(200).json({
               status: true,
-              id: cidadeProd.codigo,
+              id: cidade.codigo,
               mensagem: "Cidade gravada com sucesso!",
             });
           })
@@ -72,8 +72,8 @@ export default class CidadeControl {
       const cidade = dados.cidade;
 
       if (codigo && cidade) {
-        const cidadeProd = new CidadeModel(codigo, cidade);
-        cidadeProd
+        const cidade = new CidadeModel(codigo, cidade);
+        cidade
           .atualizar()
           .then(() => {
             resposta.status(200).json({
@@ -111,8 +111,8 @@ export default class CidadeControl {
       const codigo = dados.codigo;
 
       if (codigo) {
-        const cidadeProd = new CidadeModel(codigo);
-        cidadeProd
+        const cidade = new CidadeModel(codigo);
+        cidade
           .remover()
           .then(() => {
             resposta.status(200).json({
@@ -147,8 +147,8 @@ export default class CidadeControl {
     const codigo = requisicao.params["codigo"];
 
     if (requisicao.method === "GET") {
-      const cidadeProd = new CidadeModel();
-      cidadeProd
+      const cidade = new CidadeModel();
+      cidade
         .consultarCodigo(codigo)
         .then((cidades) => {
           resposta.status(200).json(cidades);

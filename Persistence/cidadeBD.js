@@ -45,14 +45,14 @@ export default class CidadeBD {
     const sql = "SELECT * FROM cidade";
     const valores = ["%" + termo + "%"];
 
-    const [rows] = await conexao.query(sql, valores);
     global.poolConnections.pool.releaseConnection(conexao);
+    const [rows] = await conexao.query(sql, valores);
 
     const listaCidades = [];
 
     for (const row of rows) {
-      const cidadeModel = new CidadeModel(row["codigo"], row["Cidade"]);
-      listaCidades.push(cidadeModel);
+      const city_code = new CidadeModel(row["codigo"], row["cidade"]);
+      listaCidades.push(city_code);
     }
 
     return listaCidades;
