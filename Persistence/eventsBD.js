@@ -13,6 +13,7 @@ export default class EventsBD {
         event.setTime,
         event.startDate,
         event.endDate,
+        event.city,
         event.description,
       ];
       await connection.query(sql, values);
@@ -28,6 +29,7 @@ export default class EventsBD {
         event.setTime,
         event.startDate,
         event.endDate,
+        event.city,
         event.description,
         event.title,
       ];
@@ -58,6 +60,7 @@ export default class EventsBD {
         row["setTime"],
         row["startDate"],
         row["endDate"],
+        row["city"],
         row["description"]
       );
       eventList.push(event);
@@ -80,6 +83,7 @@ export default class EventsBD {
         row["setTime"],
         row["startDate"],
         row["endDate"],
+        row["city"],
         row["description"]
       );
       eventList.push(event);
