@@ -1,4 +1,5 @@
 import Events from "../Model/events.js";
+import CidadeBD from "../Persistence/cidadeBD.js";
 
 export default class EventCtrl {
   // Método para cadastrar um evento
@@ -11,41 +12,51 @@ export default class EventCtrl {
       const setTime = data.setTime;
       const startDate = data.startDate;
       const endDate = data.endDate;
-      const city = data.city;
+      const city_code = data.city_code;
       const description = data.description;
-
-      if (title && setTime && startDate && endDate && city && description) {
-        // Grava um evento no Banco de Dados
-        const events = new Events(
-          title,
-          setTime,
-          startDate,
-          endDate,
-          city,
-          description
-        );
-        events
-          .record()
-          .then(() => {
-            response.status(200).json({
-              status: true,
-              title: events.title,
-              message: "Evento cadastrado com sucesso.",
-            });
-          })
-          .catch((error) => {
-            response.status(500).json({
+      const code = new CidadeBD(0, "").consultarCodigo(code).then((code) => {
+        if (code) {
+          if (
+            title &&
+            setTime &&
+            startDate &&
+            endDate &&
+            city_code &&
+            description
+          ) {
+            // Grava um evento no Banco de Dados
+            const events = new Events(
+              title,
+              setTime,
+              startDate,
+              endDate,
+              city_code,
+              description
+            );
+            events
+              .record()
+              .then(() => {
+                response.status(200).json({
+                  status: true,
+                  title: events.title,
+                  message: "Evento cadastrado com sucesso.",
+                });
+              })
+              .catch((error) => {
+                response.status(500).json({
+                  status: false,
+                  message: error.message,
+                });
+              });
+          } else {
+            response.status(400).json({
               status: false,
-              message: error.message,
+              message:
+                "Por favor, informe corretamente todos os dados do evento conforme a API.",
             });
-          });
-      } else {
-        response.status(400).json({
-          status: false,
-          message:
-            "Por favor, informe corretamente todos os dados do evento conforme a API.",
-        });
-      }
+          }
+        }
+      });
     } else {
       response.status(400).json({
         status: false,
@@ -65,17 +76,24 @@ export default class EventCtrl {
       const setTime = data.setTime;
       const startDate = data.startDate;
       const endDate = data.endDate;
-      const city = data.city;
+      const city_code = data.city_code;
       const description = data.description;
 
-      if (title && setTime && startDate && endDate && city && description) {
+      if (
+        title &&
+        setTime &&
+        startDate &&
+        endDate &&
+        city_code &&
+        description
+      ) {
         // Atualizar um evento no Banco de Dados
         const events = new Events(
           title,
           setTime,
           startDate,
           endDate,
-          city,
+          city_code,
           description
         );
         events
