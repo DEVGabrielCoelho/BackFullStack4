@@ -55,7 +55,7 @@ export default class Events {
     }
   }
   get city() {
-    return this.#endDate;
+    return this.#city;
   }
 
   set city(newCity) {
