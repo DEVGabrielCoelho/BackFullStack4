@@ -8,7 +8,7 @@ export default async function conectar() {
     host: "129.146.68.51",
     user: "aluno18-pfsii",
     port: 3306,
-    password: "77lRprmkDU70gd3LcwXi",
+    password: "aluno18-pfsii",
     database: "backendFullStack2",
     waitForConnections: true,
     connectionLimit: 10,
