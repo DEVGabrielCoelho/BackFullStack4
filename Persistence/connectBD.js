@@ -4,7 +4,7 @@ export default async function Connect() {
   if (global.poolConnections) {
     return await global.poolConnections.getConnection();
   }
-  const poolConexoes = await mysql.createConnection({
+  const connection = await mysql.createPool({
     host: "129.146.68.51",
     user: "aluno18-pfsii",
     port: 3306,
@@ -19,7 +19,7 @@ export default async function Connect() {
     keepAliveInitialDelay: 0,
   });
 
-  global.poolConnections = Connect;
+  global.poolConnections = connection;
 
-  return await Connect.getConnection();
+  return await connection.getConnection();
 }
