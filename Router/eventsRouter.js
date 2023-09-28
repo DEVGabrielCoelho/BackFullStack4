@@ -9,7 +9,7 @@ eventsRouter
   .put("/", eventsControl.update)
   .delete("/", eventsControl.delete)
   .get("/", eventsControl.consult)
-  .get("/simple/", eventsControl.consultSimple)
+  .get("/simple", eventsControl.consultSimple)
   .get("/:Title", eventsControl.consultTitle);
 
 export default eventsRouter;
