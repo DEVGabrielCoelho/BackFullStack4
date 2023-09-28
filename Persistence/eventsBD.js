@@ -1,6 +1,5 @@
 import CidadeModel from "../Model/cidade.js";
 import Events from "../Model/events.js";
-import CidadeBD from "./cidadeBD.js";
 import Connect from "./connectBD.js";
 
 export default class EventsBD {
@@ -78,11 +77,12 @@ export default class EventsBD {
   }
 
   async consultSimple(term) {
-    const conect = await Connect();
+    const connection = await Connect();
     const sql =
       "SELECT s.title, s.setTime, s.startDate, s.endDate, c.cidade AS city_code, s.description FROM events s INNER JOIN cidade c ON s.city_code = c.cidade";
     const values = ["%" + term + "%"];
-    const [rows] = await conect.query(sql, values);
+    global.poolConnections.pool.releaseConnection(connection);
+    const [rows] = await connection.query(sql, values);
     const listServicos = [];
     for (const row of rows) {
       const event = new Events(
