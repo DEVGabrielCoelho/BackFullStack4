@@ -77,6 +77,27 @@ export default class EventsBD {
     return eventList;
   }
 
+  async consultSimple(term) {
+    const conect = await Connect();
+    const sql =
+      "SELECT s.title, s.setTime, s.startDate, s.endDate, c.cidade AS city_code, s.description FROM events s INNER JOIN cidade c ON s.city_code = c.cidade";
+    const values = ["%" + term + "%"];
+    const [rows] = await conect.query(sql, values);
+    const listServicos = [];
+    for (const row of rows) {
+      const event = new Events(
+        row["title"],
+        row["setTime"],
+        row["startDate"],
+        row["endDate"],
+        row["city_code"],
+        row["description"]
+      );
+      listServicos.push(event);
+    }
+    return listServicos;
+  }
+
   //Método para consultar um evento pelo ID.
 
   async consultTitle(title) {

@@ -193,6 +193,32 @@ export default class EventCtrl {
     }
   }
 
+  consultSimple(request, response) {
+    response.type("application/json");
+
+    if (request.method === "GET") {
+      // Consulta eventos no Banco de Dados
+      const event = new Events();
+      event
+        .consultSimple("")
+        .then((event) => {
+          response.status(200).json(event);
+        })
+        .catch((error) => {
+          response.status(500).json({
+            status: false,
+            message: error.message,
+          });
+        });
+    } else {
+      response.status(400).json({
+        status: false,
+        message:
+          "Método não permitido. Consulte a API para obter a lista de eventos.",
+      });
+    }
+  }
+
   // Método para consultar um evento pelo ID
   consultTitle(request, response) {
     response.type("application/json");
