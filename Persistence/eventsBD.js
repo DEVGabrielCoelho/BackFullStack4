@@ -80,10 +80,10 @@ export default class EventsBD {
     const connection = await Connect();
     const sql =
       "SELECT e.title, e.setTime, e.startDate, e.endDate, c.cidade AS city_code, e.description FROM events e INNER JOIN cidade c  ON e.city_code = c.cidade";
-    const values = ["%" + term + "%"];
+    const value = ["%" + term + "%"];
     global.poolConnections.pool.releaseConnection(connection);
-    const [rows] = await connection.query(sql, values);
-    const listServicos = [];
+    const [rows] = await connection.query(sql, value);
+    const eventList = [];
     for (const row of rows) {
       const event = new Events(
         row["title"],
@@ -93,9 +93,9 @@ export default class EventsBD {
         row["city_code"],
         row["description"]
       );
-      listServicos.push(event);
+      eventList.push(event);
     }
-    return listServicos;
+    return eventList;
   }
 
   //Método para consultar um evento pelo ID.
