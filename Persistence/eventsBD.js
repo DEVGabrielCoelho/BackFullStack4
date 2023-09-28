@@ -79,7 +79,7 @@ export default class EventsBD {
   async consultSimple(term) {
     const connection = await Connect();
     const sql =
-      "SELECT e.title, e.setTime, e.startDate, e.endDate, city_code, e.description FROM events ";
+      "SELECT e.title, e.setTime, e.startDate, e.endDate, e.city_code, e.description FROM events ";
     // const sql =
     //   "SELECT e.title, e.setTime, e.startDate, e.endDate, c.cidade AS city_code, e.description FROM events e INNER JOIN cidade c  ON e.city_code = c.cidade";
     const value = ["%" + term + "%"];
