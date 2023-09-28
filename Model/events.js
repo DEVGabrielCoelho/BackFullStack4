@@ -5,15 +5,15 @@ export default class Events {
   #setTime;
   #startDate;
   #endDate;
-  #city;
+  #city_code;
   #description;
 
-  constructor(title, setTime, startDate, endDate, city, description) {
+  constructor(title, setTime, startDate, endDate, city_code, description) {
     this.#title = title;
     this.#setTime = setTime;
     this.#startDate = startDate;
     this.#endDate = endDate;
-    this.#city = city;
+    this.#city_code = city_code;
     this.#description = description;
   }
 
@@ -54,13 +54,13 @@ export default class Events {
       this.#endDate = newEndDate;
     }
   }
-  get city() {
-    return this.#city;
+  get city_code() {
+    return this.#city_code;
   }
 
-  set city(newCity) {
-    if (newCity != "") {
-      this.#city = newCity;
+  set city_code(newCity_code) {
+    if (newCity_code != "") {
+      this.#city_code = newCity_code;
     }
   }
 
@@ -82,7 +82,7 @@ export default class Events {
       setTime: this.#setTime,
       startDate: this.#startDate,
       endDate: this.#endDate,
-      city: this.#city,
+      city_code: this.#city_code,
       description: this.#description,
     };
   }
@@ -118,7 +118,7 @@ export default class Events {
 
   async consultSimple(term) {
     const eventsBD = new EventsBD();
-    const events = await eventsBD.consult(term);
+    const events = await eventsBD.consultSimple(term);
     return events;
   }
 
