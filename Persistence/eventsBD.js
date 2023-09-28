@@ -79,7 +79,7 @@ export default class EventsBD {
   async consultSimple(term) {
     const connection = await Connect();
     const sql =
-      "SELECT s.title, s.setTime, s.startDate, s.endDate, c.cidade AS city_code, s.description FROM events s INNER JOIN cidade c ON s.city_code = c.cidade";
+      "SELECT e.title, e.setTime, e.startDate, e.endDate, c.cidade AS city_code, e.description FROM events e JOIN cidade c ON s.city_code = c.cidade";
     const values = ["%" + term + "%"];
     global.poolConnections.pool.releaseConnection(connection);
     const [rows] = await connection.query(sql, values);
