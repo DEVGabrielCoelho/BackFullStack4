@@ -116,6 +116,12 @@ export default class Events {
     return events;
   }
 
+  async consultSimple(term) {
+    const eventsBD = new EventsBD();
+    const events = await eventsBD.consult(term);
+    return events;
+  }
+
   // Consulta eventos com base em um título específico
 
   async consultTitle(title) {
