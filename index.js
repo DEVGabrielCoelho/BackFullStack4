@@ -4,23 +4,12 @@ import cidadeRouter from "./Router/cidadeRouter.js";
 import cors from "cors";
 
 const server = express();
+server.use(cors({ origin: "*" }));
+//configurar a aplicação para aceitar objetos aninhados.
+server.use(express.urlencoded({ extended: true }));
 
-app.use((req, res, next) => {
-  console.log("Origem da solicitação:", req.get("origin"));
-
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-
-  next();
-});
-
-app.use(express.urlencoded({ extended: true }));
-
-app.use(express.json());
+//configurar a aplicação para processar corretamente o formado json.
+server.use(express.json());
 
 server.use("/events", eventsRouter);
 server.use("/city", cidadeRouter);
