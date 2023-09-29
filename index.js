@@ -4,6 +4,7 @@ import cidadeRouter from "./Router/cidadeRouter.js";
 import cors from "cors";
 
 const server = express();
+
 app.use((req, res, next) => {
   console.log("Origem da solicitação:", req.get("origin"));
 
@@ -16,11 +17,10 @@ app.use((req, res, next) => {
 
   next();
 });
-//configurar a aplicação para aceitar objetos aninhados.
-server.use(express.urlencoded({ extended: true }));
 
-//configurar a aplicação para processar corretamente o formado json.
-server.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.json());
 
 server.use("/events", eventsRouter);
 server.use("/city", cidadeRouter);
