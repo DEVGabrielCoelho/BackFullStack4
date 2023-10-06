@@ -1,6 +1,7 @@
 import express from "express";
 import eventsRouter from "./api/Router/eventsRouter.js";
 import cidadeRouter from "./api/Router/cidadeRouter.js";
+import histoEventCityRouter from "./api/Router/histoCidadeEventsRouter.js";
 import cors from "cors";
 
 const server = express();
@@ -13,6 +14,7 @@ server.use(express.json());
 
 server.use("/events", eventsRouter);
 server.use("/city", cidadeRouter);
+server.use("/histo", histoEventCityRouter);
 
 const localName = "localhost";
 const serverName = "0.0.0.0";
