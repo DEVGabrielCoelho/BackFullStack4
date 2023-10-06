@@ -54,7 +54,7 @@ export default class HistoCidadeEventsBD {
     global.poolConnections.pool.releaseConnection(conexao);
     const [rows] = await conexao.query(sql, valores);
 
-    const listaCidades = [];
+    const eventoHistList = [];
 
     for (const row of rows) {
       const eventoHist = new HistoCidadeEvents(
@@ -62,10 +62,10 @@ export default class HistoCidadeEventsBD {
         row["nomeEvento"],
         row["eventosCidades"]
       );
-      listaCidades.push(eventoHist);
+      eventoHistList.push(eventoHist);
     }
 
-    return listaCidades;
+    return eventoHistList;
   }
 
   async consultCod(codigo) {
@@ -85,7 +85,7 @@ export default class HistoCidadeEventsBD {
         row["nomeEvento"],
         row["eventosCidades"]
       );
-      listaCidades.push(histoCidadeEvents);
+      eventoHistList.push(histoCidadeEvents);
     }
 
     return eventoHistList;

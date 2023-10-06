@@ -2,13 +2,13 @@ import HistoCidadeEventsBD from "../Persistence/histoCidadeEventsBD.js";
 
 export default class HistoCidadeEvents {
   #id;
-  #codiCity;
-  #nomeEvent;
+  #eventosCidades;
+  #nomeEvento;
 
-  constructor(id, codiCity, nomeEvent) {
+  constructor(id, eventosCidades, nomeEvento) {
     this.#id = id;
-    this.#codiCity = codiCity;
-    this.#nomeEvent = nomeEvent;
+    this.#eventosCidades = eventosCidades;
+    this.#nomeEvento = nomeEvento;
   }
 
   get id() {
@@ -19,23 +19,23 @@ export default class HistoCidadeEvents {
     this.#id = newid;
   }
 
-  get codiCity() {
-    return this.#codiCity;
+  get eventosCidades() {
+    return this.#eventosCidades;
   }
 
-  set codiCity(newcodiCity) {
+  set eventosCidades(newcodiCity) {
     if (newcodiCity != "") {
-      this.#codiCity = newcodiCity;
+      this.#eventosCidades = newcodiCity;
     }
   }
 
-  get nomeEvent() {
-    return this.#nomeEvent;
+  get nomeEvento() {
+    return this.#nomeEvento;
   }
 
-  set nomeEvent(newnomeEvent) {
+  set nomeEvento(newnomeEvent) {
     if (newnomeEvent != "") {
-      this.#nomeEvent = newnomeEvent;
+      this.#nomeEvento = newnomeEvent;
     }
   }
 
@@ -44,8 +44,8 @@ export default class HistoCidadeEvents {
   toJSON() {
     return {
       id: this.#id,
-      codiCity: this.#codiCity,
-      nomeEvent: this.#nomeEvent,
+      nomeEvento: this.#nomeEvento,
+      eventosCidades: this.#eventosCidades,
     };
   }
 
