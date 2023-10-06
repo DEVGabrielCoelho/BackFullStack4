@@ -1,14 +1,14 @@
 import { Router } from "express";
-import HistoCtrlEC from "../Controller/cidadeControl.js";
+import HistoCtrlEC from "../Controller/histoCidadeEventsControl";
 
 const histoEventCityRouter = new Router();
 const histoCtrlEC = new HistoCtrlEC();
 
 histoEventCityRouter
-  .get("/", histoCtrlEC.consultar)
-  .post("/", histoCtrlEC.gravar)
-  .put("/", histoCtrlEC.atualizar)
-  .delete("/", histoCtrlEC.excluir);
+  .get("/", histoCtrlEC.consult)
+  .post("/", histoCtrlEC.record)
+  .put("/", histoCtrlEC.update)
+  .delete("/", histoCtrlEC.delete);
 // .get('/codigo' ,cidadeCTRL.consultarPeloCodigo);
 
 export default histoEventCityRouter;
