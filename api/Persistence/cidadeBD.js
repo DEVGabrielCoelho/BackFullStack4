@@ -1,5 +1,5 @@
 import CidadeModel from "../Model/cidade.js";
-import Connect from "./connectBD.js";
+import Connect from "../../config/connect.js";
 
 export default class CidadeBD {
   async incluir(cidadeModel) {

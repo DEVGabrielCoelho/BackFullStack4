@@ -1,14 +1,14 @@
 import { Router } from "express";
-import CidadeControl from "../Controller/cidadeControl.js";
+import HistoCtrlEC from "../Controller/cidadeControl.js";
 
-const cidadeRouter = new Router();
-const cidadeCTRL = new CidadeControl();
+const histoEventCityRouter = new Router();
+const histoCtrlEC = new HistoCtrlEC();
 
-cidadeRouter
+histoCtrlEC
   .get("/", cidadeCTRL.consultar)
   .post("/", cidadeCTRL.gravar)
   .put("/", cidadeCTRL.atualizar)
   .delete("/", cidadeCTRL.excluir);
 // .get('/codigo' ,cidadeCTRL.consultarPeloCodigo);
 
-export default cidadeRouter;
+export default histoEventCityRouter;

@@ -1,6 +1,6 @@
 import express from "express";
-import eventsRouter from "./Router/eventsRouter.js";
-import cidadeRouter from "./Router/cidadeRouter.js";
+import eventsRouter from "./api/Router/eventsRouter.js";
+import cidadeRouter from "./api/Router/cidadeRouter.js";
 import cors from "cors";
 
 const server = express();

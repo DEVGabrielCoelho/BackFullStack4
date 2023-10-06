@@ -6,13 +6,16 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
   },
   "author": "Gabriel Coelho",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "config": "^3.2.3",
     "cors": "^2.8.5",
-    "express": "^4.18.2",
+    "express": "^4.17.1",
     "mysql2": "^3.2.0"
   }
 }
