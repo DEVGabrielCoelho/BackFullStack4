@@ -4,11 +4,11 @@ import HistoCtrlEC from "../Controller/cidadeControl.js";
 const histoEventCityRouter = new Router();
 const histoCtrlEC = new HistoCtrlEC();
 
-histoCtrlEC
-  .get("/", cidadeCTRL.consultar)
-  .post("/", cidadeCTRL.gravar)
-  .put("/", cidadeCTRL.atualizar)
-  .delete("/", cidadeCTRL.excluir);
+histoEventCityRouter
+  .get("/", histoCtrlEC.consultar)
+  .post("/", histoCtrlEC.gravar)
+  .put("/", histoCtrlEC.atualizar)
+  .delete("/", histoCtrlEC.excluir);
 // .get('/codigo' ,cidadeCTRL.consultarPeloCodigo);
 
 export default histoEventCityRouter;
