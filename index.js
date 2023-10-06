@@ -21,6 +21,6 @@ const serverName = "0.0.0.0";
 const localPort = 3308;
 const serverPort = 4018;
 
-server.listen(serverPort, () => {
-  console.log(`Service running on http://${serverName}:${serverPort}`);
+server.listen(localPort, () => {
+  console.log(`Service running on http://${localName}:${localPort}`);
 });

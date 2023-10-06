@@ -1,5 +1,5 @@
 import HistoCidadeEvents from "../Model/histoCidadeEvents.js";
-import Connect from "./connectBD.js";
+import Connect from "../../config/connectBD.js";
 
 export default class HistoCidadeEventsBD {
   async record(histoCidadeEvents) {

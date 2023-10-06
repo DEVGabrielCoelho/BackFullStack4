@@ -1,6 +1,6 @@
 import CidadeModel from "../Model/cidade.js";
 import Events from "../Model/events.js";
-import Connect from "../../config/connect.js";
+import Connect from "../../config/connectBD.js";
 
 export default class EventsBD {
   //Método para cadastrar um evento.

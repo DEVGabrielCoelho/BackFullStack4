@@ -1,5 +1,5 @@
 import { Router } from "express";
-import HistoCtrlEC from "../Controller/histoCidadeEventsControl";
+import HistoCtrlEC from "../Controller/histoCidadeEventsControl.js";
 
 const histoEventCityRouter = new Router();
 const histoCtrlEC = new HistoCtrlEC();
