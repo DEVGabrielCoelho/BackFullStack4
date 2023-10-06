@@ -2,7 +2,7 @@ import HistoCidadeEvents from "../Model/histoCidadeEvents.js";
 import Connect from "./connectBD.js";
 
 export default class HistoCidadeEventsBD {
-  async incluir(histoCidadeEvents) {
+  async record(histoCidadeEvents) {
     if (histoCidadeEvents instanceof HistoCidadeEvents) {
       const conexao = await Connect();
 
@@ -16,7 +16,7 @@ export default class HistoCidadeEventsBD {
     }
   }
 
-  async alterar(histoCidadeEvents) {
+  async update(histoCidadeEvents) {
     if (histoCidadeEvents instanceof HistoCidadeEvents) {
       const conexao = await Connect();
 
@@ -33,7 +33,7 @@ export default class HistoCidadeEventsBD {
     }
   }
 
-  async excluir(histoCidadeEvents) {
+  async delete(histoCidadeEvents) {
     if (histoCidadeEvents instanceof HistoCidadeEvents) {
       const conexao = await Connect();
 
@@ -45,7 +45,7 @@ export default class HistoCidadeEventsBD {
     }
   }
 
-  async consultar(termo) {
+  async consult(termo) {
     const conexao = await Connect();
 
     const sql = "SELECT * FROM histEvents";
@@ -68,7 +68,7 @@ export default class HistoCidadeEventsBD {
     return listaCidades;
   }
 
-  async consultarCodigo(codigo) {
+  async consultCod(codigo) {
     const conexao = await Connect();
 
     const sql = "SELECT cidade FROM cidade WHERE codigo = ? ";
