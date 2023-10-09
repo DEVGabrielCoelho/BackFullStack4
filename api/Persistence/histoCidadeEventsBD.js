@@ -75,11 +75,11 @@ export default class HistoCidadeEventsBD {
   async consult(termo) {
     const conexao = await Connect();
 
-    if (histoCidadeEvents instanceof HistoCidadeEvents) {
-      const { eventosCidades } = histoCidadeEvents;
+    if (histoCidade instanceof HistoCidadeEvents) {
+      const { eventosCidades } = histoCidade;
       const sql = "SELECT * FROM histEvents where eventosCidades = ?";
 
-      const [rows] = await conexao.query(sql, histoCity);
+      const [rows] = await conexao.query(sql, eventosCidades);
 
       const eventoHistList = [];
 
