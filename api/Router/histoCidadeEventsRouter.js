@@ -5,7 +5,7 @@ const histoEventCityRouter = new Router();
 const histoCtrlEC = new HistoCtrlEC();
 
 histoEventCityRouter
-  .get("/", histoCtrlEC.consult)
+  .get("/:city", histoCtrlEC.consult)
   .post("/", histoCtrlEC.record)
   .put("/", histoCtrlEC.update)
   .delete("/", histoCtrlEC.delete);
