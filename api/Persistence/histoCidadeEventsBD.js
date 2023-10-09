@@ -80,30 +80,23 @@ export default class HistoCidadeEventsBD {
 
     try {
       if (!(histoCidade instanceof HistoCidadeEvents)) {
-        histoCidade = new HistoCidadeEvents(
-          histoCidade.id,
-          histoCidade.cidadeModel,
-          histoCidade.event
-        );
+        const { eventosCidades } = histoCidade;
+        const sql = `SELECT * FROM histEvents`;
+
+        const [rows] = await conexao.query(sql, eventosCidades);
+        const eventoHistList = rows.map((row) => {
+          const cidadeModel = new CidadeModel(row.codigo, row.cidadeNome);
+          const event = new Events(
+            row.title,
+            row.setTime,
+            row.startDate,
+            row.endDate,
+            row.city_code,
+            row.description
+          );
+          return new HistoCidadeEvents(row.id, cidadeModel, event);
+        });
       }
-
-      const { eventosCidades } = histoCidade;
-      const sql = `SELECT * FROM histEvents`;
-
-      const [rows] = await conexao.query(sql, eventosCidades);
-      const eventoHistList = rows.map((row) => {
-        const cidadeModel = new CidadeModel(row.codigo, row.cidadeNome);
-        const event = new Events(
-          row.title,
-          row.setTime,
-          row.startDate,
-          row.endDate,
-          row.city_code,
-          row.description
-        );
-        return new HistoCidadeEvents(row.id, cidadeModel, event);
-      });
-
       return eventoHistList;
     } catch (error) {
       console.error("Erro na consulta:", error);
