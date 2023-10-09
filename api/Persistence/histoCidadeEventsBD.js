@@ -74,18 +74,21 @@ export default class HistoCidadeEventsBD {
     }
   }
 
+  javascript;
   async consult(histoCidade) {
     const conexao = await Connect();
 
     try {
       if (!(histoCidade instanceof HistoCidadeEvents)) {
-        return []; // Retorna uma lista vazia se histoCidade não for uma instância de HistoCidadeEvents
+        histoCidade = new HistoCidadeEvents(
+          histoCidade.id,
+          histoCidade.cidadeModel,
+          histoCidade.event
+        );
       }
 
       const { eventosCidades } = histoCidade;
-      const sql = `
-      SELECT * FROM histEvents
-    `;
+      const sql = `SELECT * FROM histEvents`;
 
       const [rows] = await conexao.query(sql, eventosCidades);
       const eventoHistList = rows.map((row) => {
