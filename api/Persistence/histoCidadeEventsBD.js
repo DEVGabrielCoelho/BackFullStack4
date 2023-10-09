@@ -72,7 +72,7 @@ export default class HistoCidadeEventsBD {
     }
   }
 
-  async consult(termo) {
+  async consult(histoCidade) {
     const conexao = await Connect();
 
     if (histoCidade instanceof HistoCidadeEvents) {
