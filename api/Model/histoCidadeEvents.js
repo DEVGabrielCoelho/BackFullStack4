@@ -86,9 +86,9 @@ export default class HistoCidadeEvents {
 
   // Consulta eventos com base em um título específico
 
-  async consultId(title) {
+  async consultCod(title) {
     const histoCidade = new HistoCidadeEventsBD();
-    const event = await histoCidade.consultTitle(title);
+    const event = await histoCidade.consultCod(title);
     return event;
   }
 }

@@ -194,7 +194,7 @@ export default class HistoCtrlEC {
   }
 
   // Método para consultar um evento pelo ID
-  consultTitle(request, response) {
+  consultCod(request, response) {
     response.type("application/json");
     const title = request.params["title"];
 

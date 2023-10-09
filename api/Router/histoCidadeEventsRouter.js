@@ -5,10 +5,10 @@ const histoEventCityRouter = new Router();
 const histoCtrlEC = new HistoCtrlEC();
 
 histoEventCityRouter
-  .get("/:city", histoCtrlEC.consult)
+  .get("/", histoCtrlEC.consult)
   .post("/", histoCtrlEC.record)
   .put("/", histoCtrlEC.update)
-  .delete("/", histoCtrlEC.delete);
-// .get('/codigo' ,cidadeCTRL.consultarPeloCodigo);
+  .delete("/", histoCtrlEC.delete)
+  .get("/codigo", histoCtrlEC.consultCod);
 
 export default histoEventCityRouter;
