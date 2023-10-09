@@ -84,6 +84,42 @@ export default class HistoCidadeEventsBD {
 
       const { eventosCidades } = histoCidade;
       const sql = `
+      SELECT * FROM histEvents
+    `;
+
+      const [rows] = await conexao.query(sql, eventosCidades);
+      const eventoHistList = rows.map((row) => {
+        const cidadeModel = new CidadeModel(row.codigo, row.cidadeNome);
+        const event = new Events(
+          row.title,
+          row.setTime,
+          row.startDate,
+          row.endDate,
+          row.city_code,
+          row.description
+        );
+        return new HistoCidadeEvents(row.id, cidadeModel, event);
+      });
+
+      return eventoHistList;
+    } catch (error) {
+      console.error("Erro na consulta:", error);
+      throw error;
+    } finally {
+      conexao.release();
+    }
+  }
+
+  async consultCod(histoCidade) {
+    const conexao = await Connect();
+
+    try {
+      if (!(histoCidade instanceof HistoCidadeEvents)) {
+        return []; // Retorna uma lista vazia se histoCidade não for uma instância de HistoCidadeEvents
+      }
+
+      const { eventosCidades } = histoCidade;
+      const sql = `
       SELECT e.*, c.Cidade AS cidadeNome
       FROM histEvents AS e
       INNER JOIN cidade AS c ON e.city_code = c.codigo
@@ -113,26 +149,26 @@ export default class HistoCidadeEventsBD {
     }
   }
 
-  async consultCod(codigo) {
-    const conexao = await Connect();
+  // async consultCod(codigo) {
+  //   const conexao = await Connect();
 
-    const sql = "SELECT cidade FROM cidade WHERE codigo = ? ";
-    const valores = [codigo];
+  //   const sql = "SELECT cidade FROM cidade WHERE codigo = ? ";
+  //   const valores = [codigo];
 
-    const [rows] = await conexao.query(sql, valores);
-    global.poolConexoes.release(conexao);
+  //   const [rows] = await conexao.query(sql, valores);
+  //   global.poolConexoes.release(conexao);
 
-    const eventoHistList = [];
+  //   const eventoHistList = [];
 
-    for (const row of rows) {
-      const histoCidadeEvents = new HistoCidadeEvents(
-        row["id"],
-        row["nomeEvento"],
-        row["eventosCidades"]
-      );
-      eventoHistList.push(histoCidadeEvents);
-    }
+  //   for (const row of rows) {
+  //     const histoCidadeEvents = new HistoCidadeEvents(
+  //       row["id"],
+  //       row["nomeEvento"],
+  //       row["eventosCidades"]
+  //     );
+  //     eventoHistList.push(histoCidadeEvents);
+  //   }
 
-    return eventoHistList;
-  }
+  //   return eventoHistList;
+  // }
 }

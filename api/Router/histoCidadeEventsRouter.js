@@ -9,6 +9,6 @@ histoEventCityRouter
   .post("/", histoCtrlEC.record)
   .put("/", histoCtrlEC.update)
   .delete("/", histoCtrlEC.delete)
-  .get("/codigo", histoCtrlEC.consultCod);
+  .get("/:codigo", histoCtrlEC.consultCod);
 
 export default histoEventCityRouter;
