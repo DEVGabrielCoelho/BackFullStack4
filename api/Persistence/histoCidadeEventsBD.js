@@ -74,7 +74,6 @@ export default class HistoCidadeEventsBD {
     }
   }
 
-  javascript;
   async consult(histoCidade) {
     const conexao = await Connect();
 
@@ -84,7 +83,7 @@ export default class HistoCidadeEventsBD {
         const sql = `SELECT * FROM histEvents`;
 
         const [rows] = await conexao.query(sql, eventosCidades);
-        const eventoHistList = rows.map((row) => {
+        const histList = rows.map((row) => {
           const cidadeModel = new CidadeModel(row.codigo, row.cidadeNome);
           const event = new Events(
             row.title,
@@ -96,8 +95,9 @@ export default class HistoCidadeEventsBD {
           );
           return new HistoCidadeEvents(row.id, cidadeModel, event);
         });
+        return histList;
       }
-      return eventoHistList;
+      return []; // Retorna uma lista vazia se histoCidade não for uma instância de HistoCidadeEvents
     } catch (error) {
       console.error("Erro na consulta:", error);
       throw error;
