@@ -1,18 +1,29 @@
 import HistoCidadeEvents from "../Model/histoCidadeEvents.js";
 import Connect from "../../config/connectBD.js";
+import Events from "../Model/events.js";
 
 export default class HistoCidadeEventsBD {
   async record(histoCidadeEvents) {
     if (histoCidadeEvents instanceof HistoCidadeEvents) {
-      const conexao = await Connect();
-
       const sql =
         "INSERT INTO histEvents (nomeEvento, eventosCidades) VALUES (?,?)";
-      const valores = [histoCidadeEvents.Cidade];
 
-      const resultado = await conexao.query(sql, valores);
-      global.poolConnections.pool.releaseConnection(conexao);
-      return resultado[0].insertId;
+      const valores = [
+        histoCidadeEvents.nomeEvento,
+        histoCidadeEvents.eventosCidades,
+      ];
+
+      try {
+        const conexao = await Connect();
+        await conexao.beginTransaction();
+        const resultado = await conexao.query(sql, valores);
+        global.poolConnections.pool.releaseConnection(conexao);
+        await conexao.commit();
+        return resultado[0].insertId;
+      } catch (e) {
+        await conexao.rollback();
+        throw e;
+      }
     }
   }
 
@@ -28,7 +39,15 @@ export default class HistoCidadeEventsBD {
         histoCidadeEvents.id,
       ];
 
-      await conexao.query(sql, valores);
+      try {
+        await conexao.beginTransaction();
+        await conexao.query(sql, valores);
+        await conexao.commit();
+      } catch (e) {
+        await conexao.rollback();
+        throw e;
+      }
+
       global.poolConnections.pool.releaseConnection(conexao);
     }
   }
@@ -40,7 +59,15 @@ export default class HistoCidadeEventsBD {
       const sql = "DELETE FROM histEvents WHERE id = ?";
       const valores = [histoCidadeEvents.id];
 
-      await conexao.query(sql, valores);
+      try {
+        await conexao.beginTransaction();
+        await conexao.query(sql, valores);
+        await conexao.commit();
+      } catch (e) {
+        await conexao.rollback();
+        throw e;
+      }
+
       global.poolConnections.pool.releaseConnection(conexao);
     }
   }
@@ -48,22 +75,33 @@ export default class HistoCidadeEventsBD {
   async consult(termo) {
     const conexao = await Connect();
 
-    const sql = "SELECT * FROM histEvents";
-    const valores = ["%" + termo + "%"];
+    if (histoCidadeEvents instanceof HistoCidadeEvents) {
+      const { eventosCidades } = histoCidadeEvents;
+      const sql = "SELECT * FROM histEvents where eventosCidades = ?";
+
+      const [rows] = await conexao.query(sql, histoCity);
+
+      const eventoHistList = [];
+
+      for (const row of rows) {
+        const event = new Events(
+          row["title"],
+          row["setTime"],
+          row["startDate"],
+          row["endDate"],
+          row["city_code"],
+          row["description"]
+        );
+        const eventoHist = new HistoCidadeEvents(
+          row["id"],
+          row["eventosCidades"],
+          event
+        );
+        eventoHistList.push(eventoHist);
+      }
+    }
 
     global.poolConnections.pool.releaseConnection(conexao);
-    const [rows] = await conexao.query(sql, valores);
-
-    const eventoHistList = [];
-
-    for (const row of rows) {
-      const eventoHist = new HistoCidadeEvents(
-        row["id"],
-        row["nomeEvento"],
-        row["eventosCidades"]
-      );
-      eventoHistList.push(eventoHist);
-    }
 
     return eventoHistList;
   }
