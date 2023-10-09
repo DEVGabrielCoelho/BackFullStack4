@@ -1,6 +1,8 @@
 import HistoCidadeEvents from "../Model/histoCidadeEvents.js";
 import Connect from "../../config/connectBD.js";
 import Events from "../Model/events.js";
+import CidadeBD from "./cidadeBD.js";
+import CidadeModel from "../Model/cidade.js";
 
 export default class HistoCidadeEventsBD {
   async record(histoCidadeEvents) {
@@ -77,13 +79,17 @@ export default class HistoCidadeEventsBD {
 
     if (histoCidade instanceof HistoCidadeEvents) {
       const { eventosCidades } = histoCidade;
-      const sql = "SELECT * FROM histEvents where eventosCidades = ?";
-
+      const sql = `
+      SELECT *
+      FROM histEvents AS e
+      INNER JOIN cidade AS c ON e.city_code = c.codigo
+      WHERE e.eventosCidades = ?
+    `;
       const [rows] = await conexao.query(sql, eventosCidades);
-
       const eventoHistList = [];
 
       for (const row of rows) {
+        const cidadeModel = new CidadeModel(row["codigo"], row["Cidade"]);
         const event = new Events(
           row["title"],
           row["setTime"],
@@ -92,15 +98,10 @@ export default class HistoCidadeEventsBD {
           row["city_code"],
           row["description"]
         );
-        const eventoHist = new HistoCidadeEvents(
-          row["id"],
-          row["eventosCidades"],
-          event
-        );
+        const eventoHist = new HistoCidadeEvents(row["id"], cidadeModel, event);
         eventoHistList.push(eventoHist);
       }
     }
-
     global.poolConnections.pool.releaseConnection(conexao);
 
     return eventoHistList;
