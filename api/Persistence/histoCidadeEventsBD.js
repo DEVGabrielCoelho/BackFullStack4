@@ -79,7 +79,7 @@ export default class HistoCidadeEventsBD {
     const conexao = await Connect();
 
     try {
-      if (!(histoCidade instanceof HistoCidadeEvents)) {
+      if (histoCidade instanceof HistoCidadeEvents) {
         const { eventosCidades } = histoCidade;
         const sql = `SELECT * FROM histEvents`;
 
