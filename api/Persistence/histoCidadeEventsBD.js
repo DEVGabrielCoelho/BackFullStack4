@@ -97,7 +97,6 @@ export default class HistoCidadeEventsBD {
         });
         return histList;
       }
-      return []; // Retorna uma lista vazia se histoCidade não for uma instância de HistoCidadeEvents
     } catch (error) {
       console.error("Erro na consulta:", error);
       throw error;
