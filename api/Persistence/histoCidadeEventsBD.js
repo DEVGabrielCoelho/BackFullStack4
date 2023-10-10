@@ -79,10 +79,24 @@ export default class HistoCidadeEventsBD {
 
     try {
       if (histoCidade instanceof HistoCidadeEvents) {
-        const { eventosCidades } = histoCidade;
-        const sql = `SELECT * FROM histEvents`;
+        const value = ["%" + term + "%"];
+        const sql = `SELECT 
+                      Cidade.codigo, 
+                      Cidade.cidadeNome, 
+                      Events.title, 
+                      Events.setTime, 
+                      Events.startDate, 
+                      Events.endDate, 
+                      Events.city_code, 
+                      Events.description 
+                    FROM 
+                      HistoCidadeEvents 
+                    INNER JOIN 
+                      Cidade ON HistoCidadeEvents.cidade_id = Cidade.id 
+                    INNER JOIN 
+                    Events ON HistoCidadeEvents.evento_id = Events.id;`;
 
-        const [rows] = await conexao.query(sql, eventosCidades);
+        const [rows] = await conexao.query(sql, value);
         const histList = rows.map((row) => {
           const cidadeModel = new CidadeModel(row.codigo, row.cidadeNome);
           const event = new Events(
@@ -90,7 +104,7 @@ export default class HistoCidadeEventsBD {
             row.setTime,
             row.startDate,
             row.endDate,
-            row.city_code,
+            cidadeModel,
             row.description
           );
           return new HistoCidadeEvents(row.id, cidadeModel, event);
