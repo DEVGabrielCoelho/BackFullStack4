@@ -82,7 +82,7 @@ export default class HistoCidadeEventsBD {
       const sql = `SELECT 
                   *
                 FROM 
-                  histevents AS he
+                  histEvents AS he
                   INNER JOIN events AS e ON e.title = he.nomeEvento
                   INNER JOIN cidade AS c ON c.codigo = e.city_code
                 WHERE 
