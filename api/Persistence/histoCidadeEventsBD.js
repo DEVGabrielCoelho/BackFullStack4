@@ -57,6 +57,7 @@ export default class HistoCidadeEventsBD {
   async delete(histoCidadeEvents) {
     if (histoCidadeEvents instanceof HistoCidadeEvents) {
       const conexao = await Connect();
+      global.poolConnections.pool.releaseConnection(conexao);
 
       const sql = "DELETE FROM histEvents WHERE id = ?";
       const valores = [histoCidadeEvents.id];
@@ -69,53 +70,51 @@ export default class HistoCidadeEventsBD {
         await conexao.rollback();
         throw e;
       }
-
-      global.poolConnections.pool.releaseConnection(conexao);
     }
   }
 
-  async consult(histoCidade) {
-    const conexao = await Connect();
-
+  async consult(term) {
     try {
-      if (histoCidade instanceof HistoCidadeEvents) {
-        const value = ["%" + term + "%"];
-        const sql = `SELECT 
-                      Cidade.codigo, 
-                      Cidade.cidadeNome, 
-                      Events.title, 
-                      Events.setTime, 
-                      Events.startDate, 
-                      Events.endDate, 
-                      Events.city_code, 
-                      Events.description 
-                    FROM 
-                      HistoCidadeEvents 
-                    INNER JOIN 
-                      Cidade ON HistoCidadeEvents.cidade_id = Cidade.id 
-                    INNER JOIN 
-                    Events ON HistoCidadeEvents.evento_id = Events.id;`;
+      const conexao = await Connect();
+      global.poolConnections.pool.releaseConnection(conexao);
 
-        const [rows] = await conexao.query(sql, value);
-        const histList = rows.map((row) => {
-          const cidadeModel = new CidadeModel(row.codigo, row.cidadeNome);
-          const event = new Events(
-            row.title,
-            row.setTime,
-            row.startDate,
-            row.endDate,
-            cidadeModel,
-            row.description
-          );
-          return new HistoCidadeEvents(row.id, cidadeModel, event);
-        });
-        return histList;
+      const value = ["%" + term + "%"];
+      const sql = `SELECT 
+                  *
+                FROM 
+                  histevents AS he
+                  INNER JOIN events AS e ON e.title = he.nomeEvento
+                  INNER JOIN cidade AS c ON c.codigo = e.city_code
+                WHERE 
+                  e.city_code LIKE ?`;
+
+      const [rows] = await conexao.query(sql, value);
+      const histList = {};
+      for (const row of rows) {
+        const cidadeModel = new CidadeModel(row["codigo"], row["cidade"]);
+        const event = new Events(
+          row["title"],
+          row["setTime"],
+          row["startDate"],
+          row["endDate"],
+          cidadeModel,
+          row["description"]
+        );
+
+        if (!histList[cidadeModel.cidade]) {
+          histList[cidadeModel.cidade] = {
+            eventosCidades: cidadeModel,
+            nomeEvento: [event],
+          };
+        } else {
+          histList[cidadeModel.cidade].nomeEvento.push(event);
+        }
       }
+      conexao.release();
+      return Object.values(histList);
     } catch (error) {
       console.error("Erro na consulta:", error);
       throw error;
-    } finally {
-      conexao.release();
     }
   }
 

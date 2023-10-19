@@ -55,7 +55,7 @@ export default class EventsBD {
   async consult(term) {
     const connection = await Connect();
     const sql =
-      "SELECT * FROM events as p INNER JOIN cidade as c ON p.city_code = c.codigo WHERE cidade LIKE";
+      "SELECT * FROM events as p INNER JOIN cidade as c ON p.city_code = c.codigo WHERE city_code LIKE ?";
     const value = ["%" + term + "%"];
     global.poolConnections.pool.releaseConnection(connection);
     const [rows] = await connection.query(sql, value);

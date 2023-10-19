@@ -14,7 +14,7 @@ server.use(express.json());
 
 server.use("/events", eventsRouter);
 server.use("/city", cidadeRouter);
-server.use("/histo", histoEventCityRouter);
+server.use("/historico", histoEventCityRouter);
 
 const localName = "localhost";
 const serverName = "0.0.0.0";
